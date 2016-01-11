@@ -26,4 +26,7 @@ function parseParameters(item) {
   });
 }
 
-export {parse, parseParameters};
+export {
+  parse,
+  parseParameters
+};
