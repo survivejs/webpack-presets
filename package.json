@@ -4,7 +4,6 @@
   "author": "Juho Vepsalainen <bebraw@gmail.com>",
   "version": "0.0.0",
   "scripts": {
-    "start": "npm run watch && npm run watch:test",
     "build": "babel src -d lib",
     "watch": "babel src --watch -d lib",
     "test": "mocha ./test",
