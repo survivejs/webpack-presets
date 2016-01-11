@@ -17,13 +17,15 @@ function parse(definition, items) {
 }
 
 function parseParameters(item) {
-  return item.split(',').map((v) => {
-    if (v.indexOf('[') === 0) {
-      return v.split('[')[1].split[']'][0].split(',').map((s) => s.trim());
+  return item.split('[').map((v) => {
+    const value = v.trim();
+
+    if (value.indexOf(']') >= 0) {
+      return [value.split(']')[0].split(',').map((s) => s.trim())];
     }
 
-    return v;
-  });
+    return value.split(',').map((s) => s.trim());
+  }).reduce((a, b) => a.concat(b), []).filter((a) => a);
 }
 
 export {

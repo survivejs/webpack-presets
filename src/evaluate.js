@@ -1,19 +1,17 @@
-import path from 'path';
-
 import merge from 'webpack-merge';
 
 import resolvePaths from './resolve_paths';
 import { parse } from './parse';
 
 export default function evaluate({
-    actions, formats, presets, webpackrc, target }, ...config) {
+    rootPath, actions, formats, presets, webpackrc, target }, ...config) {
   const rcConfiguration = merge.apply(null, [webpackrc].concat(
     parse(presets, webpackrc.presets))
   );
   const parsedEnv = rcConfiguration.env[target] || {};
   const commonConfig = rcConfiguration.common[target.split(':')[0]] || {};
   const paths = resolvePaths(
-    path.join(__dirname, '..'),
+    rootPath,
     Object.assign({}, rcConfiguration.paths, commonConfig.paths, parsedEnv.paths)
   );
   const evaluatedActions = actions(paths);
