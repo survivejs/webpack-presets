@@ -6,10 +6,9 @@ export default function resolvePaths(rootPath, paths) {
   Object.keys(paths).forEach((k) => {
     const v = paths[k];
 
-    if(Array.isArray(v)) {
+    if (Array.isArray(v)) {
       ret[k] = v.map((p) => path.join(rootPath, p));
-    }
-    else {
+    } else {
       ret[k] = path.join(rootPath, v);
     }
   });

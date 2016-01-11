@@ -46,7 +46,7 @@ export default {
 
     ret.env[distEnv] = {
       actions: [
-        `extractCSS($(outputFile))`
+        `extractCSS(${outputFile})`
       ]
     };
 

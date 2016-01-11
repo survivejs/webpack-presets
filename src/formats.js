@@ -1,5 +1,5 @@
 export default (paths) => ({
-  png: (format='png') => ({
+  png: (format = 'png') => ({
     resolve: {
       extensions: ['.' + format]
     },
@@ -13,7 +13,7 @@ export default (paths) => ({
       ]
     }
   }),
-  jpg: (format='jpg') => ({
+  jpg: (format = 'jpg') => ({
     resolve: {
       extensions: ['.' + format]
     },
@@ -27,7 +27,7 @@ export default (paths) => ({
       ]
     }
   }),
-  json: (format='json') => ({
+  json: (format = 'json') => ({
     resolve: {
       extensions: ['.' + format]
     },
@@ -41,7 +41,7 @@ export default (paths) => ({
       ]
     }
   }),
-  babel: (format='js') => ({
+  babel: (format = 'js') => ({
     resolve: {
       extensions: ['.' + format]
     },
@@ -55,7 +55,7 @@ export default (paths) => ({
       ]
     }
   }),
-  css: (format='css') => ({
+  css: (format = 'css') => ({
     resolve: {
       extensions: ['' + format]
     },
