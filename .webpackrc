@@ -1,0 +1,75 @@
+{
+  "formats": [
+    "jpg",
+    "json",
+    "png"
+  ],
+  "paths": {
+    "babel": ["./demo", "./src"],
+    "jpg": "./demo",
+    "json": "./package.json",
+    "png": "./demo",
+    "css": [
+      "./demo",
+      "./style.css",
+      "./node_modules/purecss",
+      "./node_modules/highlight.js/styles/github.css",
+      "./node_modules/react-ghfork/gh-fork-ribbon.ie.css",
+      "./node_modules/react-ghfork/gh-fork-ribbon.css"
+    ]
+  },
+  "presets": [
+    "setupReact",
+    "separateCSS(gh-pages, styles)",
+    "extractEntry(gh-pages, vendors, [react])"
+  ],
+  "common": {
+    "dist": {
+      "devtool": "source-map",
+      "entry": "./src",
+      "output": {
+        "path": "./dist",
+        "libraryTarget": "umd",
+        "library": "Boilerplate"
+      }
+    },
+    "test": {
+      "paths": {
+        "babel": ["./src", "./tests"]
+      }
+    }
+  },
+  "env": {
+    "start": {
+      "devtool": "eval-source-map",
+      "entry": "./demo"
+    },
+    "gh-pages": {
+      "entry": {
+        "app": "./demo"
+      },
+      "output": {
+        "path": "./gh-pages",
+        "filename": "[name].[chunkhash].js",
+        "chunkFilename": "[chunkhash].js"
+      },
+      "actions": [
+        "setEnvironment(production)",
+        "minify"
+      ]
+    },
+    "dist": {
+      "output": {
+        "filename": "boilerplate.js"
+      }
+    },
+    "dist:min": {
+      "output": {
+        "filename": "boilerplate.min.js"
+      },
+      "actions": [
+        "minify"
+      ]
+    }
+  }
+}
