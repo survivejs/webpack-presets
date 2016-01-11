@@ -11,13 +11,13 @@ const webpackrc = JSON.parse(fs.readFileSync('./.webpackrc', {
 
 describe('Evaluate', function () {
   const result = lib.evaluate({
-      rootPath: __dirname,
-      actions: lib.actions,
-      formats: lib.formats,
-      presets: lib.presets,
-      webpackrc: webpackrc,
-      target: 'dist'
-    },
+    rootPath: __dirname,
+    actions: lib.actions,
+    formats: lib.formats,
+    presets: lib.presets,
+    webpackrc,
+    target: 'dist'
+  },
     {
       foo: 'bar'
     },
