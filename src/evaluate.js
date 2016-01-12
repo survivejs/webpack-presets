@@ -4,12 +4,18 @@ import resolvePaths from './resolve_paths';
 import { parse } from './parse';
 
 export default function evaluate({
-    rootPath, actions, formats, presets, webpackrc, target }, ...config) {
+    rootPath, actions, formats, presets, webpackrc, target
+  }, ...config) {
+  actions = actions || noop;
+  formats = formats || noop;
+
   const rcConfiguration = merge.apply(null, [webpackrc].concat(
     parse(presets, webpackrc.presets))
   );
   const parsedEnv = rcConfiguration.env[target] || {};
-  const commonConfig = rcConfiguration.common[target.split(':')[0]] || {};
+  const commonConfig = rcConfiguration.common ?
+    rcConfiguration.common[target.split(':')[0]] || {} :
+    {};
   const paths = resolvePaths(
     rootPath,
     Object.assign({}, rcConfiguration.paths, commonConfig.paths, parsedEnv.paths)
@@ -31,3 +37,5 @@ export default function evaluate({
       parsedEnv
     ]).concat(config).concat(parsedActions).concat(parsedFormats));
 }
+
+function noop() {}

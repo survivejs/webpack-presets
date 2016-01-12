@@ -37,6 +37,118 @@ describe('Evaluate', function () {
   it('should select correct target', function () {
     assert.equal(result.output.filename, 'boilerplate.js');
   });
+
+  const actionDefinition = {
+    module: {
+      preLoaders: [
+        {
+          test: new RegExp('\.foo$'),
+          loader: 'eslint'
+        }
+      ]
+    }
+  };
+
+  function actions() {
+    return {
+      lint: () => actionDefinition
+    };
+  }
+
+  it('should evaluate actions', function () {
+    const res = lib.evaluate({
+      rootPath: __dirname,
+      actions,
+      webpackrc: {
+        env: {
+          dist: {
+            actions: [
+              'lint'
+            ]
+          }
+        }
+      },
+      target: 'dist'
+    });
+
+    assert.deepEqual(res.module, actionDefinition.module);
+  });
+
+  const formatDefinition = {
+    resolve: {
+      extensions: ['.png']
+    },
+    module: {
+      loaders: [
+        {
+          test: new RegExp('\.png$'),
+          loader: 'url?limit=100000&mimetype=image/png'
+        }
+      ]
+    }
+  };
+
+  function formats() {
+    return {
+      png: () => formatDefinition
+    };
+  }
+
+  it('should evaluate formats', function () {
+    const res = lib.evaluate({
+      rootPath: __dirname,
+      formats,
+      webpackrc: {
+        env: {
+          dist: {
+            formats: [
+              'png'
+            ]
+          }
+        }
+      },
+      target: 'dist'
+    });
+
+    assert.deepEqual(res.resolve, {
+      extensions: ['.png', '']
+    });
+    assert.deepEqual(res.module, formatDefinition.module);
+  });
+
+  it('should evaluate presets', function () {
+    const presetDefinition = {
+      formats: ['png'],
+      env: {
+        start: {
+          actions: [
+            'lint'
+          ]
+        }
+      }
+    };
+
+    const presets = {
+      demo: () => presetDefinition
+    };
+
+    const res = lib.evaluate({
+      rootPath: __dirname,
+      actions,
+      formats,
+      presets,
+      webpackrc: {
+        presets: ['demo']
+      },
+      target: 'start'
+    });
+
+    assert.deepEqual(res.resolve, {
+      extensions: ['.png', '']
+    });
+    assert.deepEqual(res.module.preLoaders, actionDefinition.module.preLoaders);
+    assert.deepEqual(res.module.loaders, formatDefinition.module.loaders);
+  });
 });
 
 describe('Resolve paths', function () {
