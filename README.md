@@ -238,7 +238,9 @@ export default (paths) => ({
 });
 ```
 
-The system provides a couple of sample actions like this. The interface accepts `paths` for optimization. As long as you stick with the interface (`(Object of paths) => {string => function => Object}`), you can define actions of your own.
+The system provides a couple of sample actions like this. The interface accepts `paths` for optimization.
+
+In order to make it easier to compose, `evaluate` accepts an array of definitions like this. As long as you stick with the interface (`(Object of paths) => {string => function => Object}`) for each, it should work.
 
 ## Formats
 
@@ -270,7 +272,7 @@ The interface is similar again. Each format accepts an optional `format`. That c
 Presets are a higher level concept that allow composition. They are higher level fragments that are composited to the output before evaluating any other configuration. This means they can contain other concepts. Consider the example below:
 
 ```javascript
-export default {
+export default (paths) => ({
   extractEntry: (distEnv, vendorsName, vendorsValue) => {
     const ret = {
       env: {
@@ -288,7 +290,7 @@ export default {
 
     return ret;
   }
-}
+})
 ```
 
 The interface is similar as earlier. This time, though, function signatures are flexible and can be customized based on the exact need. Presets allow you to extract common workflows into a format you may compose later.

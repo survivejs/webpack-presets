@@ -8,9 +8,10 @@ export default function evaluate({
   }, ...config) {
   actions = actions || noop;
   formats = formats || noop;
+  presets = presets || noop;
 
   const rcConfiguration = merge.apply(null, [webpackrc].concat(
-    parse(presets, webpackrc.presets))
+    parse(apply(presets, paths), webpackrc.presets))
   );
   const parsedEnv = rcConfiguration.env[target] || {};
   const commonConfig = rcConfiguration.common ?
@@ -20,8 +21,8 @@ export default function evaluate({
     rootPath,
     Object.assign({}, rcConfiguration.paths, commonConfig.paths, parsedEnv.paths)
   );
-  const evaluatedActions = actions(paths);
-  const evaluatedFormats = formats(paths);
+  const evaluatedActions = apply(actions, paths);
+  const evaluatedFormats = apply(formats, paths);
   const rootConfig = {
     resolve: {
       extensions: ['']
@@ -36,6 +37,14 @@ export default function evaluate({
     concat(parsedRootActions).concat(parsedRootFormats).concat([
       parsedEnv
     ]).concat(config).concat(parsedActions).concat(parsedFormats));
+}
+
+function apply(configuration, paths) {
+  if(Array.isArray(configuration)) {
+    return merge.apply(null, configuration.map((conf) => conf(paths)));
+  }
+
+  return configuration(paths);
 }
 
 function noop() {}

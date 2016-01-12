@@ -1,4 +1,4 @@
-export default {
+export default (paths) => ({
   setupReact: () => ({
     formats: [
       'babel(js)',
@@ -69,4 +69,4 @@ export default {
 
     return ret;
   }
-};
+});

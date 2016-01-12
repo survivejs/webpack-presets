@@ -74,6 +74,46 @@ describe('Evaluate', function () {
     assert.deepEqual(res.module, actionDefinition.module);
   });
 
+  // it's the same logic for formats and presets too
+  // XXX: there needs to be a better way to test through each
+  it('should evaluate composed actions', function () {
+    const actionDefinition2 = {
+      module: {
+        loaders: [
+          {
+            test: new RegExp('\.js$'),
+            loader: 'babel'
+          }
+        ]
+      }
+    };
+
+    function moreActions() {
+      return {
+        lintMore: () => actionDefinition2
+      };
+    }
+
+    const res = lib.evaluate({
+      rootPath: __dirname,
+      actions: [actions, moreActions],
+      webpackrc: {
+        env: {
+          dist: {
+            actions: [
+              'lint',
+              'lintMore'
+            ]
+          }
+        }
+      },
+      target: 'dist'
+    });
+
+    assert.deepEqual(res.module.preLoaders, actionDefinition.module.preLoaders);
+    assert.deepEqual(res.module.loaders, actionDefinition2.module.loaders);
+  });
+
   const formatDefinition = {
     resolve: {
       extensions: ['.png']
@@ -128,9 +168,11 @@ describe('Evaluate', function () {
       }
     };
 
-    const presets = {
-      demo: () => presetDefinition
-    };
+    function presets() {
+      return {
+        demo: () => presetDefinition
+      };
+    }
 
     const res = lib.evaluate({
       rootPath: __dirname,
