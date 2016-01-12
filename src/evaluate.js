@@ -40,7 +40,7 @@ export default function evaluate({
 }
 
 function apply(configuration, paths) {
-  if(Array.isArray(configuration)) {
+  if (Array.isArray(configuration)) {
     return merge.apply(null, configuration.map((conf) => conf(paths)));
   }
 

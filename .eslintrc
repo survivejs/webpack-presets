@@ -12,6 +12,7 @@
   "rules": {
     "func-names": 0,
     "comma-dangle": [2, "never"],
+    "no-param-reassign": 0,
     "no-undef": [2],
     "no-undefined": 1,
     "no-use-before-define": 0,
