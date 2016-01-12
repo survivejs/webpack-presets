@@ -10,13 +10,15 @@ export default (paths) => ({
     ]
   }),
   lint: (format) => ({
-    preLoaders: [
-      {
-        test: new RegExp('\.' + format + '$'),
-        loader: 'eslint',
-        include: paths.babel
-      }
-    ]
+    module: {
+      preLoaders: [
+        {
+          test: new RegExp('\.' + format + '$'),
+          loader: 'eslint',
+          include: paths.babel
+        }
+      ]
+    }
   }),
   enableHMR: () => ({
     plugins: [
