@@ -47,7 +47,7 @@ const result = evaluate({
 
 **.webpackrc**
 
-```json
+```js
 {
   // which formats to use in the project
   "formats": [
