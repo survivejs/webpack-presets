@@ -295,6 +295,10 @@ export default (paths) => ({
 
 The interface is similar as earlier. This time, though, function signatures are flexible and can be customized based on the exact need. Presets allow you to extract common workflows into a format you may compose later.
 
+## Contributors
+
+* [Tim Dorr](https://github.com/timdorr) - Improved README formatting.
+
 ## License
 
 *webpack-presets* is available under MIT. See LICENSE for more details.
