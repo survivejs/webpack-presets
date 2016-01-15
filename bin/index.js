@@ -38,6 +38,11 @@ function main() {
 
           console.log('Finished!');
         });
+
+        // TODO: if target is `start`, run through webpack-dev-server
+        // instead. note that this will need some special setup for
+        // hmr to work as discussed at
+        // https://webpack.github.io/docs/webpack-dev-server.html#inline-mode-with-node-js-api
       } else {
         console.error('Failed to find "' + preset + '" in "' +
           Object.keys(presets).join('", "') + '"');
