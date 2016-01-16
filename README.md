@@ -147,7 +147,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import SystemBellPlugin from 'system-bell-webpack-plugin';
 import Clean from 'clean-webpack-plugin';
 import React from 'react';
-import ReactDOM from 'react-dom/server';
 
 import App from './demo/App.jsx';
 import pkg from './package.json';
@@ -156,14 +155,11 @@ import webpackActions from './lib/actions';
 import webpackFormats from './lib/formats';
 import webpackPresets from './lib/presets';
 import evaluate from './lib/evaluate';
-import renderJSX from './lib/render_jsx.jsx';
 
 // read *.webpackrc*. This could be in *package.json* etc. or code even
 const webpackrc = JSON.parse(fs.readFileSync('./.webpackrc', {
   encoding: 'utf-8'
 }));
-
-const RENDER_UNIVERSAL = true;
 
 // set target based on env
 const TARGET = process.env.npm_lifecycle_event || 'test';
@@ -180,8 +176,7 @@ const extraConfig = {
   start: {
     plugins: [
       new HtmlWebpackPlugin({
-        title: pkg.name + ' - ' + pkg.description,
-        templateContent: renderJSX
+        title: pkg.name + ' - ' + pkg.description + ' - DEVELOPMENT'
       })
     ]
   },
@@ -190,10 +185,6 @@ const extraConfig = {
       new Clean(['gh-pages']),
       new HtmlWebpackPlugin({
         title: pkg.name + ' - ' + pkg.description,
-        templateContent: renderJSX.bind(
-          null,
-          RENDER_UNIVERSAL ? ReactDOM.renderToString(<App />) : ''
-        )
       })
     ]
   }
