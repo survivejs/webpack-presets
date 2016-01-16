@@ -12,6 +12,7 @@ function main() {
 
   program.version(VERSION);
 
+  // TODO: support multiple presets
   program
     .command('preset [preset]')
     .description('Use preset')
