@@ -22,7 +22,7 @@ const webpackrc = JSON.parse(fs.readFileSync('./.webpackrc', {
   encoding: 'utf-8'
 }));
 
-export.default = evaluate({
+export default evaluate({
   rootPath: __dirname, // root path of the project
   actions, // actions to map against
   formats, // loader mappings
