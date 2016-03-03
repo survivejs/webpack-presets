@@ -208,7 +208,7 @@ module.exports = evaluate({
 
 ## Actions
 
-`actions` capture some cross-cutting concern, such as setting up **HMR*. For instance, that action would return a configuration fragment that sets up `plugins` and `devServer`. Here's an example:
+`actions` capture some cross-cutting concern, such as setting up **HMR**. For instance, that action would return a configuration fragment that sets up `plugins` and `devServer`. Here's an example:
 
 ```javascript
 export default (paths) => ({
