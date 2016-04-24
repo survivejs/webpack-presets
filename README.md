@@ -1,3 +1,5 @@
+**DEPRECATED!** - Use functional composition and **webpack-merge** instead!
+
 [![build status](https://secure.travis-ci.org/survivejs/webpack-presets.png)](http://travis-ci.org/survivejs/webpack-presets)
 # webpack-presets - Shareable configuration presets for Webpack
 
